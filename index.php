@@ -2,30 +2,30 @@
 
 //1
 
-// trait StringTrait {
-//     private $stringWord;
-//     public function measureLength ($length) {
-//         $Word = $this -> stringWord = $length;
-//         return strlen ($Word);
-//     }
-//     public function makeUppercase () {
-//         $Word = $this -> stringWord;
-//         return strtoupper ($Word);
-//     }
-// }
-// class StringLengthCalcualte {
-//     use StringTrait;
-// }
-// class MyClass {
-//     private string $message;
-//     use StringTrait;
-// }
-// $length = new StringLengthCalcualte ();
-// $class = new MyClass ();
-// echo$class -> measureLength('Length') . '<br>';
-// echo $class -> makeUppercase() . '<br>';
-// echo $length -> measureLength ('Length') . '<br>';
-// echo $length -> makeUppercase ();
+trait StringTrait {
+    private $stringWord;
+    public function measureLength ($length) {
+        $Word = $this -> stringWord = $length;
+        return strlen ($Word);
+    }
+    public function makeUppercase () {
+        $Word = $this -> stringWord;
+        return strtoupper ($Word);
+    }
+}
+class StringLengthCalcualte {
+    use StringTrait;
+}
+class MyClass {
+    private string $message;
+    use StringTrait;
+}
+$length = new StringLengthCalcualte ();
+$class = new MyClass ();
+echo$class -> measureLength('Length') . '<br>';
+echo $class -> makeUppercase() . '<br>';
+echo $length -> measureLength ('Length') . '<br>';
+echo $length -> makeUppercase ();
 
 //2.
 
@@ -47,7 +47,7 @@ private $age;
 private $height; // in meters
 private $isMarried;
 private $childrenCount;
-    public function __construct (string $name, int $age, float $height, string $isMarried, int $childrenCount) {
+    public function __construct (string $name, int $age, float $height, bool $isMarried, int $childrenCount) {
         $this -> name = $name;
         $this -> age = $age;
         $this -> height = $height;
@@ -63,14 +63,14 @@ private $childrenCount;
     public function get_height () : float {
         return $this -> height;
     }
-    public function get_isMarried () : string {
+    public function get_isMarried () : bool {
         return $this -> isMarried;
     }
     public function get_childrenCount() : int {
         return $this -> childrenCount;
     }
 }
-$some = new User ('Garry', 15, 1.70, 'nop', 0);
+$some = new User ('Garry', 15, 1.70, false, 0);
 echo 'Name: ' . $some -> get_name() . '<br>';
 echo 'Age: ' . $some -> get_age() . '<br>';
 echo 'Heigth: ' . $some -> get_height() . '<br>';
@@ -82,11 +82,11 @@ echo 'ChildrenCount: ' . $some -> get_childrenCount();
 //4.1
 
     $AsomeWord = 'SomeText';
-    $pattern = '/^[A-Za-z_]+/';
-    if (preg_match($pattern, trim($AsomeWord))){
-         echo '<br><br>' . 'good' . '<br>';
+    $pattern = '/^[A-Za-z_][A-Za-z_0-9]+$/';
+    if (preg_match($pattern, $AsomeWord)){
+        echo '<br>there is<br>';
     }else {
-        echo '<br><br>' . 'wrong';
+        echo '<br>there is not<br>';
     }
 
 
@@ -106,12 +106,8 @@ if (preg_match($pattern, $new_string)){
 $someText = 'Love Programming';
 $pattern = '/\s/';
 
-if (preg_match($pattern, $someText)){
-    echo ' <br>' . trim ($someText);
-    //or preg_replace()
-}else {
-    echo '<br>' . 'nop';
-}
+echo '<br>' .  $text = preg_replace($pattern, '', $someText);
+
 
 
 //5
@@ -120,6 +116,8 @@ $fileName = 'someFileForTryCatch.php';
 try {
     if (!file_exists($fileName)){
         throw new Exception('error');
+    }else {
+        require $fileName;
     }
     
 }catch (Exception $e){
